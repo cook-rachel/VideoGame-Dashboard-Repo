@@ -26,7 +26,7 @@ knitr::opts_chunk$set(warning=FALSE, echo = FALSE)
 knitr::include_graphics("www/AboutMe_image.jpg")
 ```
 
-Rachel Shaw is a statistical data scientist with over five years of experience in R, SQL, ArcGIS, and Tableau. 
+Rachel Cook is a statistical data scientist with over five years of experience in R, SQL, ArcGIS, and Tableau. 
 
 She has demonstrated proficiency in handling large and intricate datasets exceeding 60 million datapoints across a variety of servers and databases. Her expertise in SQL, R, and Excel allows her to effectively query data from diverse sources, including cloud, network, and local databases. Her skillset encompasses data cleaning, manipulation, and advanced statistical modeling to deliver accurate and insightful analysis. 
 
@@ -38,11 +38,11 @@ Rachel possesses two master’s degrees, along with the Google Data Analytics Pr
 
 Please click on following links to read more:
 
-[LinkedIn](https://www.linkedin.com/in/rachel-shaw/)
+[LinkedIn](https://www.linkedin.com/in/cook-rachel/)
 <br>
-[GitHub](https://github.com/rachel-shaw) 
+[GitHub](https://github.com/cook-rachel) 
 <br>
-[Tableau](https://public.tableau.com/app/profile/rachelshaw) 
+[Tableau](https://public.tableau.com/app/profile/rachelcook) 
 <br>
 
 
