@@ -160,21 +160,40 @@ server = function(input, output, session) {
   
   
   #add map
-  region_map <- sf::st_read("shapefiles/Merged_Shapes/Merged_Shapes2.shp", stringsAsFactors = F) %>%
-    st_transform() %>%
-    st_zm() %>%
-    as("Spatial")
+  # region_map <- sf::st_read("shapefiles/Merged_Shapes/Merged_Shapes2.shp", stringsAsFactors = F) %>%
+  #   st_transform() %>%
+  #   st_zm() %>%
+  #   as("Spatial")
   
-  region_map@data <- region_map@data %>%
+  # Read the GeoJSON instead of Shapefile
+  region_map <- st_read("shapefiles/Merged_Shapes/Merged_Shapes2.geojson", driver = "GeoJSON", quiet = TRUE)
+  
+  # Keep the rest of your transformations
+  region_map <- st_transform(region_map, crs = 4326)
+  region_map <- st_zm(region_map)
+  
+  # add a column without converting to Spatial
+  region_map <- region_map %>%
     mutate(Region = CONTINENT) %>%
-    select(-CONTINENT) %>%
-    relocate(Region, .after = FID) 
+    select(-CONTINENT)
+  
+  
+  
+  # region_map@data <- region_map@data %>%
+  #   mutate(Region = CONTINENT) %>%
+  #   select(-CONTINENT) %>%
+  #   relocate(Region, .after = FID) 
   
   #Make a static map
-  WorldMap <- leaflet(data= region_map, options = leafletOptions(center = c(90,90), minZoom = 1.4)) %>%
+  # WorldMap <- leaflet(data= region_map, options = leafletOptions(center = c(90,90), minZoom = 1.4)) %>%
+  #   addProviderTiles(providers$CartoDB.PositronNoLabels, options = providerTileOptions(noWrap = TRUE)) %>%
+  #   fitBounds(lng1 = 0, lat1 = 90,
+  #             lng2 = 0, lat2 = -50)
+  
+  WorldMap <- leaflet(data= region_map) %>%
     addProviderTiles(providers$CartoDB.PositronNoLabels, options = providerTileOptions(noWrap = TRUE)) %>%
-    fitBounds(lng1 = 0, lat1 = 90,
-              lng2 = 0, lat2 = -50) 
+    fitBounds(lng1 = 0, lat1 = 90, lng2 = 0, lat2 = -50)
+  
   
   output$map <- renderLeaflet({WorldMap})
   
@@ -205,12 +224,22 @@ server = function(input, output, session) {
     req(input$units_sold)
     req(input$UnitsSold_YearRange)
     
-    region_map@data <- region_map@data %>%
-      full_join(map_datasetInput(),by="Region") %>%
-      mutate(label = paste0("<strong>",Region,"</strong>","<br/>",
-                            input$units_sold, " Units Sold in Year Range: ", round(Total,digits = 2),
-                            "<br/>", 
-                            "Percent of Global Sales: ", round(Percent,digits = 2), "%"))
+    # region_map@data <- region_map@data %>%
+    #   full_join(map_datasetInput(),by="Region") %>%
+    #   mutate(label = paste0("<strong>",Region,"</strong>","<br/>",
+    #                         input$units_sold, " Units Sold in Year Range: ", round(Total,digits = 2),
+    #                         "<br/>", 
+    #                         "Percent of Global Sales: ", round(Percent,digits = 2), "%"))
+    
+    region_map <- region_map %>%
+      full_join(map_datasetInput(), by = "Region") %>%
+      mutate(
+        label = paste0(
+          "<strong>", Region, "</strong>", "<br/>",
+          input$units_sold, " Units Sold in Year Range: ", round(Total, 2), "<br/>",
+          "Percent of Global Sales: ", round(Percent, 2), "%"
+        )
+      )
     
     #define colors for heatmap
     pal <- colorNumeric(

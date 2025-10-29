@@ -8,3 +8,20 @@ rsconnect::deployApp(appDir="/Volumes/Rachel/GitHub Repos/VideoGame-Dashboard-Re
                      forceUpdate = TRUE,
                      account = "cookprojects",
                      upload = TRUE)
+
+# renv::dependencies()   # Check that rgdal no longer appears (need to set working dir first)
+# 
+# 
+# files <- list.files("/Volumes/Rachel/GitHub Repos/VideoGame-Dashboard-Repo", 
+#                     pattern = "\\.R$|\\.Rmd$", recursive = TRUE, full.names = TRUE)
+# 
+# for (f in files) {
+#   lines <- readLines(f, warn = FALSE)
+#   matches <- grep("rgdal", lines)
+#   if (length(matches) > 0) {
+#     for (m in matches) {
+#       cat("Found in:", f, "at line", m, "->", lines[m], "\n")
+#     }
+#   }
+# }
+

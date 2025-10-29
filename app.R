@@ -14,7 +14,6 @@ library(readxl)
 library(leaflet)
 library(sf)
 library(sp)
-library(rgdal)
 library(plotly)
 
 

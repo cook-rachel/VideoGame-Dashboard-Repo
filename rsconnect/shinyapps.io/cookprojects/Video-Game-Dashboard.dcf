@@ -5,6 +5,6 @@ account: cookprojects
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 9547407
-bundleId:
+bundleId: 11102529
 url: https://cookprojects.shinyapps.io/Video-Game-Dashboard/
 version: 1
