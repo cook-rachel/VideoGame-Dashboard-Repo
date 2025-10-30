@@ -2062,7 +2062,7 @@ This page was written as an HTLM file via RMarkdown and read into the RShiny das
 
 <center>
 
-#### All code is available on my [GitHub page](https://github.com/rachel-shaw/VideoGame-Dashboard-Repo)
+#### All code is available on my [GitHub page](https://github.com/cook-rachel/VideoGame-Dashboard-Repo)
 
 </center>
 

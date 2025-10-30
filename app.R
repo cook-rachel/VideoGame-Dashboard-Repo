@@ -649,7 +649,7 @@ ui = navbarPage(
            # App title ----
            titlePanel(div(
              windowTitle = "",
-             img(src = "About_Me_Banner2.jpg", width = "100%", class = "bg"),
+             img(src = "About_Me_Banner_updated.jpg", width = "100%", class = "bg"),
            )),
            
            fluidPage(htmlOutput("AboutMe"))),
@@ -659,7 +659,7 @@ ui = navbarPage(
   # credit banner----
   footer = (div(
     windowTitle = "",
-    img(src = "Dashboard_Credit_Banner_small.jpg", width = "100%", class = "bg"),
+    img(src = "Dashboard_Credit_Banner_small2.jpg", width = "100%", class = "bg"),
   )),
   
   
