@@ -160,22 +160,21 @@ server = function(input, output, session) {
   
   
   #add map
-  # region_map <- sf::st_read("shapefiles/Merged_Shapes/Merged_Shapes2.shp", stringsAsFactors = F) %>%
-  #   st_transform() %>%
-  #   st_zm() %>%
-  #   as("Spatial")
+  region_map <- sf::st_read("shapefiles/Merged_Shapes/Merged_Shapes2.shp", stringsAsFactors = F) %>%
+    st_transform() %>%
+    st_zm() %>%
+    as("Spatial")
   
   # Read the GeoJSON instead of Shapefile
-  region_map <- st_read("shapefiles/Merged_Shapes/Merged_Shapes2.geojson", driver = "GeoJSON", quiet = TRUE)
+  region_map <- st_read("shapefiles/Merged_Shapes/Merged_Shapes3.geojson")
   
-  # Keep the rest of your transformations
-  region_map <- st_transform(region_map, crs = 4326)
-  region_map <- st_zm(region_map)
-  
-  # add a column without converting to Spatial
-  region_map <- region_map %>%
-    mutate(Region = CONTINENT) %>%
-    select(-CONTINENT)
+  # # Keep the rest of your transformations
+  # region_map <- st_transform(region_map, crs = 4326)
+  # region_map <- st_zm(region_map)
+  # 
+  # # add a column without converting to Spatial
+  # region_map <- region_map %>%
+  #   rename(Region = CONTINENT)
   
   
   
@@ -232,7 +231,7 @@ server = function(input, output, session) {
     #                         "Percent of Global Sales: ", round(Percent,digits = 2), "%"))
     
     region_map <- region_map %>%
-      full_join(map_datasetInput(), by = "Region") %>%
+      left_join(map_datasetInput(), by = "Region") %>%
       mutate(
         label = paste0(
           "<strong>", Region, "</strong>", "<br/>",
@@ -240,6 +239,9 @@ server = function(input, output, session) {
           "Percent of Global Sales: ", round(Percent, 2), "%"
         )
       )
+    
+    region_map <- st_as_sf(region_map)
+    
     
     #define colors for heatmap
     pal <- colorNumeric(
